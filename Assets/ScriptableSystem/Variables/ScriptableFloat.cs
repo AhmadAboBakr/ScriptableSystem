@@ -1,10 +1,11 @@
 ﻿
-
-public class ScriptableFloat : ScriptableVariable<float>
+namespace ScriptableSystem
 {
-    public override void Parse(string value)
+    public class ScriptableFloat : ScriptableVariable<float>
     {
-        this.value = float.Parse(value) ;
+        public override void Parse(string value)
+        {
+            this.value = float.Parse(value);
+        }
     }
 }
-

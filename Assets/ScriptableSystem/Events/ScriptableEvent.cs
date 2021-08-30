@@ -3,10 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
-namespace Assets.ScriptableSystem
+namespace ScriptableSystem
 {
-    class ScriptableEvent
+    [CreateAssetMenu(menuName ="ScriptableSystem/Event")]
+    public class ScriptableEvent : ScriptableObject 
     {
+        private event Action listners;
+        public void Subscribe(Action listner) {
+            listners += listner;
+        }
+        public void Unsubscribe(Action listner)
+        {
+            listner -= listner;
+        }
+        public void Invoke()
+        {
+            listners?.Invoke();
+        }
     }
 }

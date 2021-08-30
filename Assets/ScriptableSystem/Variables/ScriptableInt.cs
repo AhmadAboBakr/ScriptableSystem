@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-public class ScriptableInt : ScriptableVariable<int>
+namespace ScriptableSystem
 {
-    public override void Parse(string value)
+    public class ScriptableInt : ScriptableVariable<int>
     {
-        this.value = int.Parse(value);
+        public override void Parse(string value)
+        {
+            this.value = int.Parse(value);
+        }
     }
 }
-

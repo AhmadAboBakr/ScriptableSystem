@@ -1,12 +1,12 @@
-﻿
+﻿using UnityEngine;
 
-using UnityEngine;
-
-public class ScriptableVector : ScriptableVariable<Vector3>
+namespace ScriptableSystem
 {
-    public override void Parse(string value)
+    public class ScriptableVector : ScriptableVariable<Vector3>
     {
-        this.value = JsonUtility.FromJson<Vector3>(value);
+        public override void Parse(string value)
+        {
+            this.value = JsonUtility.FromJson<Vector3>(value);
+        }
     }
 }
-

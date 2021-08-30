@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using UnityEngine;
-public abstract class ScriptableVariable : ScriptableObject
+namespace ScriptableSystem
 {
-    public abstract override string ToString();
-    public abstract void Parse(string value);
-}
-public abstract class ScriptableVariable<T> : ScriptableVariable 
-{
-    public T value;
-    public override string ToString()
+    public abstract class ScriptableVariable : ScriptableObject
     {
-        return value.ToString() ;
+        public abstract override string ToString();
+        public abstract void Parse(string value);
     }
-
-    public static implicit operator T(ScriptableVariable<T> value)
+    public abstract class ScriptableVariable<T> : ScriptableVariable
     {
-        return value.value;
+        public T value;
+        public override string ToString()
+        {
+            return value.ToString();
+        }
+
+        public static implicit operator T(ScriptableVariable<T> value)
+        {
+            return value.value;
+        }
     }
 }
