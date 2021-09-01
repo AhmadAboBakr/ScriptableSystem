@@ -6,25 +6,25 @@ using System.Text.RegularExpressions;
 
 namespace ScriptableSystem.Editors
 {
-    [CustomPropertyDrawer(typeof(ScriptableInt))]
-    [CustomPropertyDrawer(typeof(ScriptableFloat))]
-    [CustomPropertyDrawer(typeof(ScriptableVector))]
+    [CustomPropertyDrawer(typeof(IScriptableVariable), true)]
+
     public class ScriptableVariableDrawer : PropertyDrawer
     {
-
+        string path = "";
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            if (!EditorPrefs.HasKey("variablePath"))
+            if (path == "")
             {
-                EditorPrefs.SetString("variablePath", "Assets/");
-                //AssetDatabase.CreateFolder("/","Variables");
+                var assets = AssetDatabase.FindAssets("t:Configuration");
+                var config = AssetDatabase.LoadAssetAtPath<Configuration>(AssetDatabase.GUIDToAssetPath(assets[0]));
+                path = config.variables;
             }
             var content = EditorGUI.BeginProperty(position, label, property);
             var variableReffrence = (IScriptableVariable)property.objectReferenceValue;
 
             if (variableReffrence == null)
             {
-                DrawNullDrawer(position, property);
+                DrawNullDrawer(position, property, path);
             }
             else
             {
@@ -33,38 +33,34 @@ namespace ScriptableSystem.Editors
 
             EditorGUI.EndProperty();
         }
-        private void DrawEditableDrawer(Rect position, SerializedProperty property)
+        private static void DrawEditableDrawer(Rect position, SerializedProperty property)
         {
-            position.height = EditorGUIUtility.singleLineHeight;
-            EditorGUI.PropertyField(position, property);
-            if (property.objectReferenceValue != null)
-            {
-                EditorGUI.indentLevel++;
-                position.y += EditorGUIUtility.singleLineHeight;
-                position.width *= .9f;
-                var serializedObject = new SerializedObject(property.objectReferenceValue);
-                EditorGUI.PropertyField(position, serializedObject.FindProperty("value"));
-                serializedObject.ApplyModifiedProperties();
-                EditorGUI.indentLevel--;
+            var width = position.width;
 
-            }
+            position.width = width * .6f;
+            var serializedObject = new SerializedObject(property.objectReferenceValue);
+            EditorGUI.PropertyField(position, serializedObject.FindProperty("value"), new GUIContent(property.name));
+            serializedObject.ApplyModifiedProperties();
+            position.x += width * .62f;
+            position.width = width * .38f;
+            EditorGUI.PropertyField(position, property,new GUIContent(""));
         }
 
-        private void DrawNullDrawer(Rect position, SerializedProperty property)
+        public static void DrawNullDrawer(Rect position, SerializedProperty property, string path)
         {
-            position.width = position.width * 2 / 3 - 2;
+            var width = position.width;
+            position.width = width * 4 / 5;
             EditorGUI.PropertyField(position, property);
-            position.x += position.width + 2;
-            position.width = position.width / 2;
+            position.x += width * 4 / 5;
+            position.width = width / 5;
             if (GUI.Button(position, "Assign"))
             {
-
                 var type = property.type.Substring(6);
                 type = type.Substring(0, type.Length - 1);
                 var assetsGUID = AssetDatabase.FindAssets("t:" + type + " " + property.name);
                 if (assetsGUID.Length == 0)
                 {
-                    DisplayCreationDialoge(property, type);
+                    DisplayCreationDialoge(property, type, path);
                 }
                 else
                 {
@@ -78,32 +74,26 @@ namespace ScriptableSystem.Editors
             var obj = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
             property.objectReferenceValue = obj;
         }
-
-        private static void DisplayCreationDialoge(SerializedProperty property, string type)
+        private static void DisplayCreationDialoge(SerializedProperty property, string type, string path)
         {
             var directory = EditorPrefs.GetString("variablePath");
             // Todo can't find asset Do something here 
             var answer = EditorUtility.DisplayDialog(
                 "Can't find variable",
-                $"can't find a variable with the name: {property.name} do you want to create it in the default directory{directory}",
+                $"can't find a variable with the name: {property.name} do you want to create it in the default directory: {path}",
                 "Yes",
                 "No");
 
             if (answer)
             {
                 var instance = ScriptableObject.CreateInstance(type);
-                AssetDatabase.CreateAsset(instance, EditorPrefs.GetString("variablePath") + property.name + ".asset");
+                AssetDatabase.CreateAsset(instance, path + "/" + property.name + ".asset");
                 property.objectReferenceValue = instance;
             }
         }
-
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            if (property.objectReferenceValue == null)
-            {
-                return EditorGUIUtility.singleLineHeight;
-            }
-            return EditorGUIUtility.singleLineHeight * 2;
+            return EditorGUIUtility.singleLineHeight * 1;
         }
     }
 }

@@ -4,7 +4,11 @@ using UnityEngine;
 using ScriptableSystem;
 public class Tester : MonoBehaviour
 {
-    public ScriptableInt test;
-    public ScriptableFloat test2;
-    public ScriptableVector test3;
+    public ScriptableFloat f;
+    public ScriptableString s;
+
+    public ScriptableEvent ev;
+    public ScriptableInt i;
+    public ScriptableVector v;
+    public float fl;
 }
