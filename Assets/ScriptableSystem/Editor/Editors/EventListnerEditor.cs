@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-namespace ScriptableSystem
+namespace ScriptableSystem.Editors
 {
     [CustomEditor(typeof(EventListner))]
-    public class EventListnerEditor : Editor
+    public class EventListnerEditor : UnityEditor.Editor
     {
         ReorderableList events;
         int selected = 0;

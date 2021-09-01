@@ -1,12 +1,17 @@
 ﻿using System;
+using UnityEngine;
+using ScriptableSystem;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetworkSystem
 {
-    public class ScriptableRouter
+    [CreateAssetMenu(menuName ="Router")]
+    public class ScriptableRouter : ScriptableObject, IRouter
     {
+        public List<NetworkEvent> Listners;
+        public void RouteMessage(Message message)
+        {
+            Listners[message.opCode].Invoke(message);
+        }
     }
 }

@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 using UnityEditor;
-namespace ScriptableSystem
+namespace ScriptableSystem.Editors
 {
     [CustomEditor(typeof(ScriptableEvent))]
     public class EventEditor : Editor

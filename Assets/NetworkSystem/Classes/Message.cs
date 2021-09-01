@@ -1,7 +1,8 @@
-﻿public class Message
+﻿[System.Serializable]
+public class Message
 {
     public int sender;
     public int objectID;
-    public string name;
+    public int opCode;
     public string data;
 }
