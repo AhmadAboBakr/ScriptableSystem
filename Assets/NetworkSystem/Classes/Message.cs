@@ -3,6 +3,6 @@ public class Message
 {
     public int sender;
     public int objectID;
-    public int opCode;
+    public int name;
     public string data;
 }

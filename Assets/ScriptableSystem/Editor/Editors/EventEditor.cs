@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 namespace ScriptableSystem.Editors
 {
@@ -14,7 +13,6 @@ namespace ScriptableSystem.Editors
                 CreateInvokeButton();
             }
         }
-
         private void CreateInvokeButton()
         {
             if (GUILayout.Button("Raise"))
@@ -26,7 +24,7 @@ namespace ScriptableSystem.Editors
     [CustomPropertyDrawer(typeof(ScriptableEvent))]
     public class EventDrawer : PropertyDrawer
     {
-        string path;
+        string path="";
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             if (path == "")
@@ -43,7 +41,6 @@ namespace ScriptableSystem.Editors
             {
                 EditorGUI.PropertyField(position, property);
             }
-
         }
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {

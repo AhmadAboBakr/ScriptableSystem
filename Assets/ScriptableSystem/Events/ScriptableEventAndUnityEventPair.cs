@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine.Events;
+using UnityEngine;
 
 namespace ScriptableSystem
 {
@@ -18,7 +19,7 @@ namespace ScriptableSystem
     [System.Serializable]
     public class ScriptableEventAndUnityEventPair<T>
     {
-        public UnityEvent<T> unityEvent;
+        [SerializeField]public UnityEvent<T> unityEvent;
         public ScriptableEvent<T> scriptableEvent;
         public void OnInvoke(T data)
         {

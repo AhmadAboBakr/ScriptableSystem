@@ -5,10 +5,10 @@ using UnityEngine.Events;
 namespace ScriptableSystem
 {
 
-
+    [System.Serializable]
     public class EventListner<T> : MonoBehaviour
     {
-        [HideInInspector] [SerializeField] private List<ScriptableEventAndUnityEventPair<T>> events;
+       [SerializeField] private List<ScriptableEventAndUnityEventPair<T>> events;
         private void OnEnable()
         {
             foreach (var @event in events)
@@ -22,9 +22,9 @@ namespace ScriptableSystem
             {
                 @event.scriptableEvent?.Unsubscribe(@event.OnInvoke);
             }
-
         }
     }
+    [System.Serializable]
     public class EventListner : MonoBehaviour
     {
         [HideInInspector] [SerializeField] private List<ScriptableEventAndUnityEventPair> events;

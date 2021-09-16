@@ -30,7 +30,6 @@ namespace ScriptableSystem.Editors
             {
                 DrawEditableDrawer(position, property);
             }
-
             EditorGUI.EndProperty();
         }
         private static void DrawEditableDrawer(Rect position, SerializedProperty property)

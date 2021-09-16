@@ -24,7 +24,7 @@ namespace ScriptableSystem
         }
     }
 
-    public class ScriptableEvent<T>
+    public class ScriptableEvent<T>:ScriptableObject
     {
         private event Action<T> listners;
 
