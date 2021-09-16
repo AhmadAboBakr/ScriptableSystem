@@ -1,0 +1,7 @@
+{
+  "name": "com.highstreet.networksystem",
+  "version": "1.0.0",
+  "dependencies": {
+     "com.highstreet.scriptablesystem": "1.0.0"
+  }
+}

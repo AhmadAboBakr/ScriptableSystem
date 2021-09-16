@@ -1,0 +1,19 @@
+{
+    "name": "NetworkEditors",
+    "references": [
+        "GUID:56dd71cfd4011454e813dc4b2ed9429f",
+        "GUID:4425b25d49042374eb9fb8c9016e7498",
+        "GUID:a272097d689244f488315aadd41690a4"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
